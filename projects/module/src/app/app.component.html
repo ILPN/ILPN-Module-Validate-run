@@ -8,9 +8,9 @@
     <hr>
 
     <div fxLayout="row" fxLayoutAlign="space-evenly start">
-        <ilpn-file-upload [descriptionText]="'drop a labeled Petri net file here'" [fileDisplay]="fdPN"></ilpn-file-upload>
-        <ilpn-file-upload [descriptionText]="'drop a partial order file here'" [fileDisplay]="fdPO"></ilpn-file-upload>
-        <ilpn-file-download [descriptionText]="'download validate result'"></ilpn-file-download>
+        <ilpn-file-upload [descriptionText]="'drop a labeled Petri net file here'" [fileDisplay]="fdPN" [showText]="petriNet === undefined" (fileContent)="parsePN($event)"></ilpn-file-upload>
+        <ilpn-file-upload [descriptionText]="'drop a partial order file here'" [fileDisplay]="fdPO" [showText]="partialOrder === undefined" (fileContent)="parsePO($event)"></ilpn-file-upload>
+        <ilpn-file-download [descriptionText]="'download validate result'" [squareContent]="'🐇'"></ilpn-file-download>
     </div>
 
 </ilpn-page-layout>
