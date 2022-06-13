@@ -1,6 +1,15 @@
 import {Component} from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
-import {FD_PARTIAL_ORDER, FD_PETRI_NET, PetriNet, PartialOrder, PetriNetParserService, PartialOrderParserService, DropFile} from 'ilpn-components';
+import {
+    FD_PARTIAL_ORDER,
+    FD_PETRI_NET,
+    PetriNet,
+    PartialOrder,
+    PetriNetParserService,
+    PartialOrderParserService,
+    DropFile,
+    LpoFlowValidator
+} from 'ilpn-components';
 
 @Component({
     selector: 'app-root',
@@ -27,6 +36,7 @@ export class AppComponent {
         }
         this.petriNet = this._pnParser.parse(files[0].content);
         console.dir(this.petriNet);
+        this.validate();
     }
 
     parsePO(files: Array<DropFile>) {
@@ -35,5 +45,13 @@ export class AppComponent {
         }
         this.partialOrder = this._poParser.parse(files[0].content);
         console.dir(this.partialOrder);
+        this.validate();
+    }
+
+    private validate() {
+        if (this.petriNet !== undefined && this.partialOrder !== undefined) {
+            const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
+            console.log(validator.validate())
+        }
     }
 }
