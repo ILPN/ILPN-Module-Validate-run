@@ -22,8 +22,8 @@ import {
 })
 export class AppComponent {
 
-    fdPN = FD_PETRI_NET;
-    fdPO = FD_PARTIAL_ORDER
+    FD_PN = FD_PETRI_NET;
+    FD_PO = FD_PARTIAL_ORDER
 
     petriNet: PetriNet | undefined;
     partialOrder: PartialOrder | undefined;
@@ -54,9 +54,11 @@ export class AppComponent {
     private validate() {
         if (this.petriNet !== undefined && this.partialOrder !== undefined) {
             const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
+
             const start = performance.now();
             const results = validator.validate();
             const end = performance.now();
+
             const result = new AlgorithmResult('validate a run', start, end);
             const places = this.petriNet.getPlaces();
             for (let i = 0; i < places.length; i++) {
