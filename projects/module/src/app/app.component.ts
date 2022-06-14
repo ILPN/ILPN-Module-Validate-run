@@ -22,6 +22,9 @@ import {
 })
 export class AppComponent {
 
+    private static readonly ALGORITHM_NAME = 'validate a run';
+    private static readonly RESULT_FILE_NAME = 'result.txt';
+
     FD_PN = FD_PETRI_NET;
     FD_PO = FD_PARTIAL_ORDER
 
@@ -53,6 +56,7 @@ export class AppComponent {
 
     private validate() {
         if (this.petriNet !== undefined && this.partialOrder !== undefined) {
+            this.resultFile = undefined;
             try {
                 const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
 
@@ -60,16 +64,17 @@ export class AppComponent {
                 const results = validator.validate();
                 const end = performance.now();
 
-                const result = new AlgorithmResult('validate a run', start, end);
+                const result = new AlgorithmResult(AppComponent.ALGORITHM_NAME, start, end);
                 const places = this.petriNet.getPlaces();
                 for (let i = 0; i < places.length; i++) {
                     result.addOutputLine(`${places[i].id} ${results[i] ? 'valid' : 'not valid'}`);
                 }
-                this.resultFile = new DropFile('result.txt', result.serialise());
+                this.resultFile = result.toDropFile(AppComponent.RESULT_FILE_NAME);
             } catch (e) {
-                console.error(e);
-                this.petriNet = undefined;
-                this.partialOrder = undefined;
+                const error = e as Error;
+                const result = new AlgorithmResult(AppComponent.ALGORITHM_NAME);
+                result.addOutputLine(error.message);
+                this.resultFile = result.toDropFile(AppComponent.RESULT_FILE_NAME);
             }
         }
     }
