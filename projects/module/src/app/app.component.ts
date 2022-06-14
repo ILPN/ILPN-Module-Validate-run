@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
 import {
+    AlgorithmResult,
     FD_PARTIAL_ORDER,
     FD_PETRI_NET,
     PetriNet,
@@ -27,6 +28,8 @@ export class AppComponent {
     petriNet: PetriNet | undefined;
     partialOrder: PartialOrder | undefined;
 
+    resultFile: DropFile | undefined;
+
     constructor(private _pnParser: PetriNetParserService, private _poParser: PartialOrderParserService) {
     }
 
@@ -51,7 +54,15 @@ export class AppComponent {
     private validate() {
         if (this.petriNet !== undefined && this.partialOrder !== undefined) {
             const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
-            console.log(validator.validate())
+            const start = performance.now();
+            const results = validator.validate();
+            const end = performance.now();
+            const result = new AlgorithmResult('validate a run', start, end);
+            const places = this.petriNet.getPlaces();
+            for (let i = 0; i < places.length; i++) {
+                result.addOutputLine(`${places[i].id} ${results[i] ? 'valid' : 'not valid'}`);
+            }
+            this.resultFile = new DropFile('el.txt', result.serialise());
         }
     }
 }
