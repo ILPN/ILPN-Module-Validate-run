@@ -1,0 +1,68 @@
+.type pn
+.transitions
+t0 t0
+t1 t1
+t2 t2
+t3 t3
+t4 t4
+t5 t5
+t6 t6
+t7 t7
+t8 t8
+t9 t9
+.places
+p0 1
+p1 0
+p10 3
+p11 1
+p12 0
+p2 1
+p3 0
+p4 100
+p5 0
+p6 94
+p7 0
+p8 1
+p9 97
+.arcs
+p12 t0 94
+t1 p1 1
+t1 p6 1
+p1 t2 1
+p6 t2 1
+t2 p12 1
+t2 p2 1
+t2 p3 1
+p3 t3 100
+t3 p4 100
+p11 t4 1
+p4 t0 6
+t4 p5 1
+p12 t5 94
+p3 t5 94
+t5 p4 94
+t5 p6 94
+p10 t6 1
+p12 t6 1
+p5 t6 1
+p8 t6 1
+t6 p12 1
+t0 p3 6
+t6 p5 1
+t6 p7 1
+p12 t7 1
+p7 t7 1
+t7 p6 1
+t7 p8 1
+t7 p9 1
+p9 t8 100
+t8 p10 100
+p5 t9 1
+t0 p6 94
+t9 p11 1
+p0 t1 1
+p2 t1 1
+p4 t1 1
+p6 t1 1
+t1 p0 1
+
