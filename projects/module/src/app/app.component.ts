@@ -53,18 +53,24 @@ export class AppComponent {
 
     private validate() {
         if (this.petriNet !== undefined && this.partialOrder !== undefined) {
-            const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
+            try {
+                const validator = new LpoFlowValidator(this.petriNet, this.partialOrder);
 
-            const start = performance.now();
-            const results = validator.validate();
-            const end = performance.now();
+                const start = performance.now();
+                const results = validator.validate();
+                const end = performance.now();
 
-            const result = new AlgorithmResult('validate a run', start, end);
-            const places = this.petriNet.getPlaces();
-            for (let i = 0; i < places.length; i++) {
-                result.addOutputLine(`${places[i].id} ${results[i] ? 'valid' : 'not valid'}`);
+                const result = new AlgorithmResult('validate a run', start, end);
+                const places = this.petriNet.getPlaces();
+                for (let i = 0; i < places.length; i++) {
+                    result.addOutputLine(`${places[i].id} ${results[i] ? 'valid' : 'not valid'}`);
+                }
+                this.resultFile = new DropFile('result.txt', result.serialise());
+            } catch (e) {
+                console.error(e);
+                this.petriNet = undefined;
+                this.partialOrder = undefined;
             }
-            this.resultFile = new DropFile('el.txt', result.serialise());
         }
     }
 }
