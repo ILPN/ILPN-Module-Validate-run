@@ -1,13 +1,13 @@
 <ilpn-page-layout>
     <h2>
         Validate a run in a Petri net - This algorithm is published at <br>
-        <i>Verification of scenarios in Petri nets using compact tokenflows</i> by R. Bergenthum, R. Lorenz in Fundamenta Informaticae 2015.<br>
+        <a href="https://content.iospress.com/articles/fundamenta-informaticae/fi137-1-06">Verification of scenarios in Petri nets using compact tokenflows</a> by R. Bergenthum, R. Lorenz in Fundamenta Informaticae 2015.<br>
         It solves the following problem:<br>
         Let PN be a Petri net and RN be a run. Check if RN ∈ L(PN) holds.
     </h2>
     <hr>
 
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayout.sm="column" fxLayoutAlign.sm="space-between center">
         <ilpn-file-upload [descriptionText]="'drop a labeled Petri net file here'" [fileDisplay]="FD_PN" [showText]="petriNet === undefined" (fileContent)="parsePN($event)"></ilpn-file-upload>
         <ilpn-file-upload [descriptionText]="'drop a partial order file here'" [fileDisplay]="FD_PO" [showText]="partialOrder === undefined" (fileContent)="parsePO($event)"></ilpn-file-upload>
         <ilpn-file-download [descriptionText]="'download validate result'" [squareContent]="'🐇'" [disabled]="resultFile === undefined" [files]="resultFile"></ilpn-file-download>
@@ -31,7 +31,7 @@ OUTPUT Pnvalid
 
     <hr>
     <h2>download examples</h2>
-    <div fxLayout="row wrap">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column" fxLayoutAlign.sm="space-between center">
         <ilpn-descriptive-link [fileDisplay]="FD_PN" title="Petri net" description="get yourself a simple example Petri net" link="assets/pn.txt" [download]="true"></ilpn-descriptive-link>
         <ilpn-descriptive-link [fileDisplay]="FD_PO" title="run" description="get yourself a simple example run" link="assets/run.txt" [download]="true"></ilpn-descriptive-link>
 
