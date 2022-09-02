@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {APP_BASE_HREF} from '@angular/common';
 import {
     AlgorithmResult,
     FD_PARTIAL_ORDER,
@@ -15,10 +14,7 @@ import {
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    providers: [
-        {provide: APP_BASE_HREF, useValue: '/ilovepetrinets/rabbit/'}
-    ]
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
